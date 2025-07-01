@@ -20,11 +20,48 @@ class Admin extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
 		$this->load->view('admin/index');
+        $this->load->view('template/footer');
+		$this->load->view('template/script');
 	}
 
-	public function patient_form()
+	public function pasien_form()
 	{
-		$this->load->view('admin/patient_form');
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+		$this->load->view('admin/pasien_form');
+        $this->load->view('template/footer');
+		$this->load->view('template/script');
+
 	}
+		public function dokter()
+	{
+		$this->load->view('template/header');
+        $this->load->view('template/sidebar');
+		$this->load->view('admin/dokter');
+        $this->load->view('template/footer');
+		$this->load->view('template/script');
+
+	}
+
+	public function simpan_pasien()
+{
+    $data = [
+        'nama'         => $this->input->post('nama'),
+        'nomor_kamar'  => $this->input->post('nomor_kamar'),
+        'telepon'      => $this->input->post('telepon'),
+        'alamat'       => $this->input->post('alamat'),
+        'visum'        => $this->input->post('visum'),
+        'tindakan'     => $this->input->post('tindakan'),
+        'dokter'       => $this->input->post('dokter'),
+    ];
+
+	foreach ($data as $key => $value) {
+		echo $key . ': ' . $value . '<br>';
+	}
+    // redirect('admin/pasien'); // redirect ke halaman daftar pasien, atau lainnya
+}
+
 }
