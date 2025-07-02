@@ -10,7 +10,7 @@
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Formulis Pasien</li>
+                  <li class="breadcrumb-item active" aria-current="page">Formulir Pasien</li>
                 </ol>
               </div>
             </div>
@@ -53,8 +53,17 @@
 
     <!-- No Telepon -->
     <div class="mb-3">
-      <label for="telepon" class="form-label">No Telepon</label>
-      <input type="text" class="form-control" name="telepon" required />
+        <label for="telepon" class="form-label">No Telepon</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="telepon"
+          name="no_telp"
+          pattern="08[0-9]{10,13}"
+          title="Nomor harus diawali 08 dan terdiri dari 10–13 digit"
+          placeholder="Contoh: 081234567890"
+          required
+        />
     </div>
 
     <!-- Alamat -->
@@ -71,14 +80,24 @@
 
     <!-- Tindakan -->
     <div class="mb-3">
-      <label for="tindakan" class="form-label">Tindakan</label>
-      <input type="text" class="form-control" name="tindakan" required />
+      <label for="tindakan">Tindakan</label>
+      <select name="tindakan" class="form-control" required>
+          <option value="">-- Pilih Tindakan --</option>
+          <?php foreach ($tindakan as $row): ?>
+              <option value="<?= $row['id']; ?>"><?= $row['nama']; ?></option>
+          <?php endforeach; ?>
+      </select>
     </div>
 
     <!-- Dokter -->
     <div class="mb-3">
-      <label for="dokter" class="form-label">Dokter</label>
-      <input type="text" class="form-control" name="dokter" required />
+      <label for="nama" class="form-label">Pilih Dokter</label>
+      <select name="nama" class="form-select" required>
+        <option value="">-- Pilih Dokter --</option>
+        <?php foreach ($dokter as $d): ?>
+          <option value="<?= $d['id']; ?>"><?= $d['nama']; ?></option>
+        <?php endforeach; ?>
+      </select> 
     </div>
 
   </div>

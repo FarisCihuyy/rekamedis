@@ -19,32 +19,51 @@ class Admin extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+{
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
 		$this->load->view('admin/index');
         $this->load->view('template/footer');
 		$this->load->view('template/script');
-	}
+}
 
 	public function pasien_form()
-	{
-		$this->load->view('template/header');
-        $this->load->view('template/sidebar');
-		$this->load->view('admin/pasien_form');
-        $this->load->view('template/footer');
-		$this->load->view('template/script');
+{
+		$this->load->model('tindakan');
+		$this->load->model('Dokter');
+		
+		$data['tindakan'] = $this->tindakan->get_all();
+    	$data['dokter'] = $this->Dokter->get_all();
 
-	}
-		public function dokter()
-	{
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar'); 
+		$this->load->view('admin/pasien_form', $data);
+		$this->load->view('template/footer');
+		$this->load->view('template/script');
+}
+
+	public function dokter()
+{
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
 		$this->load->view('admin/dokter');
         $this->load->view('template/footer');
 		$this->load->view('template/script');
+}
 
-	}
+	public function dokter_save()
+{
+    $this->load->model('dokter');
+    $data = [
+        'nama' => $this->input->post('nama'),
+        'no_telp' => $this->input->post('no_telp')
+    ];
+    $this->dokter->insert($data);
+    redirect('admin/dokter'); // kembali ke form setelah simpan
+}
+
+
+
 
 	public function simpan_pasien()
 {
@@ -61,6 +80,9 @@ class Admin extends CI_Controller {
 	foreach ($data as $key => $value) {
 		echo $key . ': ' . $value . '<br>';
 	}
+	$this->load->model('pasien');
+	$this->pasien->insert($data);	
+
     // redirect('admin/pasien'); // redirect ke halaman daftar pasien, atau lainnya
 }
 
