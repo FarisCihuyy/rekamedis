@@ -19,48 +19,83 @@ class Admin extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
-	{
+{
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
 		$this->load->view('admin/index');
         $this->load->view('template/footer');
 		$this->load->view('template/script');
-	}
+}
 
 	public function pasien_form()
-	{
-		$this->load->view('template/header');
-        $this->load->view('template/sidebar');
-		$this->load->view('admin/pasien_form');
-        $this->load->view('template/footer');
-		$this->load->view('template/script');
+{
+		$this->load->model('tindakan');
+		$this->load->model('Dokter');
+		
+		$data['tindakan'] = $this->tindakan->get_all();
+    	$data['dokter'] = $this->Dokter->get_all();
 
-	}
-		public function dokter()
-	{
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar'); 
+		$this->load->view('admin/pasien_form', $data);
+		$this->load->view('template/footer');
+		$this->load->view('template/script');
+}
+
+	public function dokter()
+{
 		$this->load->view('template/header');
         $this->load->view('template/sidebar');
 		$this->load->view('admin/dokter');
         $this->load->view('template/footer');
 		$this->load->view('template/script');
+}
 
-	}
+	public function dokter_save()
+{
+    $this->load->model('dokter');
+    $data = [
+        'nama' => $this->input->post('nama'),
+        'no_telp' => $this->input->post('no_telp')
+    ];
+    $this->dokter->insert($data);
+	$this->session->set_flashdata('alert', '
+	<div class="alert alert-success alert-dismissible" role="alert">
+		Data Dokter berhasil disimpan.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>');
+    redirect('admin/dokter'); // kembali ke form setelah simpan
+}
 
 	public function simpan_pasien()
 {
-    $data = [
-        'nama'         => $this->input->post('nama'),
-        'nomor_kamar'  => $this->input->post('nomor_kamar'),
-        'telepon'      => $this->input->post('telepon'),
-        'alamat'       => $this->input->post('alamat'),
-        'visum'        => $this->input->post('visum'),
-        'tindakan'     => $this->input->post('tindakan'),
-        'dokter'       => $this->input->post('dokter'),
-    ];
+	$data_pasien = [
+		'nama'		=> $this->input->post('nama'),
+		'no_room'	=> $this->input->post('no_room'),
+		'no_telp'	=> $this->input->post('no_telp'),
+		'alamat'	=> $this->input->post('alamat'),
+	];
+	$this->load->model('pasien');
+	$this->pasien->insert($data_pasien);
 
-	foreach ($data as $key => $value) {
-		echo $key . ': ' . $value . '<br>';
-	}
+    // Simpan data ke tabel 'reka_medik'
+    $data_medik = [
+        'no_room'      => $this->input->post('no_room'),
+        'id_tindakan'  => $this->input->post('id_tindakan'),
+        'id_dokter'    => $this->input->post('id_dokter'),
+        'visum'        => $this->input->post('visum'),
+        'tanggal'      => date('Y-m-d'),
+    ];
+    $this->load->model('rekamedik');
+    $this->rekamedik->insert($data_medik);
+
+    $this->session->set_flashdata('alert', '
+	<div class="alert alert-success alert-dismissible" role="alert">
+		Data pasien berhasil disimpan.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>');
+    redirect('admin/pasien_form');
+
     // redirect('admin/pasien'); // redirect ke halaman daftar pasien, atau lainnya
 }
 

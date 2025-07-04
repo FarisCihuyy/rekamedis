@@ -10,7 +10,7 @@
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Formulis Pasien</li>
+                  <li class="breadcrumb-item active" aria-current="page">Formulir Pasien</li>
                 </ol>
               </div>
             </div>
@@ -23,6 +23,12 @@
         <div class="app-content">
           <!--begin::Container-->
           <div class="container-fluid">
+            <div class="auto-hide">
+              <?php
+              echo  $this->session->flashdata('alert');
+              $this->session->unset_userdata('alert');
+              ?>
+            </div>
             <!--begin::Row-->
             <div class="row g-4">
               <!--begin::Col-->
@@ -36,7 +42,7 @@
   <!--end::Header-->
 
   <!--begin::Form-->
-<form action="<?= base_url('admin/simpan_pasien') ?>" method="post">
+<form action="<?= site_url('admin/simpan_pasien') ?>" method="post">
   <div class="card-body">
 
     <!-- Nama Pasien -->
@@ -47,14 +53,23 @@
 
     <!-- No Kamar -->
     <div class="mb-3">
-      <label for="nomor_kamar" class="form-label">Nomor Kamar</label>
-      <input type="text" class="form-control" name="nomor_kamar" required />
+      <label for="no_room" class="form-label">Nomor Kamar</label>
+      <input type="text" class="form-control" name="no_room" required />
     </div>
 
     <!-- No Telepon -->
     <div class="mb-3">
-      <label for="telepon" class="form-label">No Telepon</label>
-      <input type="text" class="form-control" name="telepon" required />
+        <label for="telepon" class="form-label">No Telepon</label>
+        <input
+          type="tel"
+          class="form-control"
+          id="telepon"
+          name="no_telp"
+          pattern="08[0-9]{10,13}"
+          title="Nomor harus diawali 08 dan terdiri dari 10–13 digit"
+          placeholder="Contoh: 081234567890"
+          required
+        />
     </div>
 
     <!-- Alamat -->
@@ -71,14 +86,24 @@
 
     <!-- Tindakan -->
     <div class="mb-3">
-      <label for="tindakan" class="form-label">Tindakan</label>
-      <input type="text" class="form-control" name="tindakan" required />
+      <label for="id_tindakan">Tindakan</label>
+      <select name="id_tindakan" class="form-control" required>
+          <option value="">-- Pilih Tindakan --</option>
+          <?php foreach ($tindakan as $row): ?>
+              <option value="<?= $row['id']; ?>"><?= $row['nama']; ?></option>
+          <?php endforeach; ?>
+      </select>
     </div>
 
     <!-- Dokter -->
     <div class="mb-3">
-      <label for="dokter" class="form-label">Dokter</label>
-      <input type="text" class="form-control" name="dokter" required />
+      <label for="id_dokter" class="form-label">Pilih Dokter</label>
+      <select name="id_dokter" class="form-select" required>
+        <option value="">-- Pilih Dokter --</option>
+        <?php foreach ($dokter as $d): ?>
+          <option value="<?= $d['id']; ?>"><?= $d['nama']; ?></option>
+        <?php endforeach; ?>
+      </select> 
     </div>
 
   </div>

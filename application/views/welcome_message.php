@@ -55,9 +55,9 @@
 					<td><?= $_rekamedik->Dokter; ?></td>
 					<td class="d-flex justify-content-center align-items-center gap-3" style="font-size: 14px;">
 						<i class="bi bi-pencil-square bg-success-subtle text-dark ratio-1x1 p-2 rounded" style="cursor: pointer;"></i>
-						<a href="#" 
+							<a href="<?= site_url('admin/delete/' . $_rekamedik->Ruangan) ?>"
 							class="btn-delete bi bi-trash3 bg-danger text-white ratio-1x1 p-2 rounded text-decoration-none" 
-							data-id="<?= $_rekamedik->Ruangan ?>" 
+							 
 							style="cursor: pointer;">
 						</a>
 
