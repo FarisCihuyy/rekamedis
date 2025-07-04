@@ -1,6 +1,10 @@
     </div>
     <!--end::App Wrapper-->
     <!--begin::Script-->
+        <script>
+          setTimeout(() => document.querySelector('.auto-hide').remove(), 3000)
+      // $('#menghilang').delay('slow').slideDown('slow').delay(10000).slideUp(600);
+    </script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"

@@ -23,6 +23,12 @@
         <div class="app-content">
           <!--begin::Container-->
           <div class="container-fluid">
+            <div class="auto-hide">
+              <?php
+              echo  $this->session->flashdata('alert');
+              $this->session->unset_userdata('alert');
+              ?>
+            </div>
             <!--begin::Row-->
             <div class="row g-4">
               <!--begin::Col-->

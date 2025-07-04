@@ -59,6 +59,11 @@ class Admin extends CI_Controller {
         'no_telp' => $this->input->post('no_telp')
     ];
     $this->dokter->insert($data);
+	$this->session->set_flashdata('alert', '
+	<div class="alert alert-success alert-dismissible" role="alert">
+		Data Dokter berhasil disimpan.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>');
     redirect('admin/dokter'); // kembali ke form setelah simpan
 }
 
@@ -84,7 +89,11 @@ class Admin extends CI_Controller {
     $this->load->model('rekamedik');
     $this->rekamedik->insert($data_medik);
 
-    // $this->session->set_flashdata('pesan', 'Data pasien berhasil disimpan.');
+    $this->session->set_flashdata('alert', '
+	<div class="alert alert-success alert-dismissible" role="alert">
+		Data pasien berhasil disimpan.
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>');
     redirect('admin/pasien_form');
 
     // redirect('admin/pasien'); // redirect ke halaman daftar pasien, atau lainnya

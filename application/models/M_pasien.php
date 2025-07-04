@@ -9,9 +9,15 @@ class M_pasien extends CI_Model
     }
 
     public function delete($ruangan)
-    {
-        $this->db->where('no_room', $ruangan); // sesuaikan 'id' dengan nama kolom primary key-mu
-        $this->db->delete('reka_medik'); // sesuaikan nama tabel
-    }
+{
+    // Hapus dari rekamedik
+    $this->db->where('no_room', $ruangan);
+    $this->db->delete('reka_medik');
+
+    // Hapus dari pasien
+    $this->db->where('no_room', $ruangan);
+    $this->db->delete('pasien');
+}
+
 
 }

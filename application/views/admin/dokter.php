@@ -4,6 +4,12 @@
         <div class="app-content-header">
           <!--begin::Container-->
           <div class="container-fluid">
+            <div class="auto-hide">
+              <?php
+              echo  $this->session->flashdata('alert');
+              $this->session->unset_userdata('alert');
+              ?>
+            </div>
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6"><h3 class="mb-0">Formulir Dokter</h3></div>
