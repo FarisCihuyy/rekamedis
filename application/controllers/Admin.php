@@ -62,26 +62,30 @@ class Admin extends CI_Controller {
     redirect('admin/dokter'); // kembali ke form setelah simpan
 }
 
-
-
-
 	public function simpan_pasien()
 {
-    $data = [
-        'nama'         => $this->input->post('nama'),
-        'nomor_kamar'  => $this->input->post('nomor_kamar'),
-        'telepon'      => $this->input->post('telepon'),
-        'alamat'       => $this->input->post('alamat'),
-        'visum'        => $this->input->post('visum'),
-        'tindakan'     => $this->input->post('tindakan'),
-        'dokter'       => $this->input->post('dokter'),
-    ];
-
-	foreach ($data as $key => $value) {
-		echo $key . ': ' . $value . '<br>';
-	}
+	$data_pasien = [
+		'nama'		=> $this->input->post('nama'),
+		'no_room'	=> $this->input->post('no_room'),
+		'no_telp'	=> $this->input->post('no_telp'),
+		'alamat'	=> $this->input->post('alamat'),
+	];
 	$this->load->model('pasien');
-	$this->pasien->insert($data);	
+	$this->pasien->insert($data_pasien);
+
+    // Simpan data ke tabel 'reka_medik'
+    $data_medik = [
+        'no_room'      => $this->input->post('no_room'),
+        'id_tindakan'  => $this->input->post('id_tindakan'),
+        'id_dokter'    => $this->input->post('id_dokter'),
+        'visum'        => $this->input->post('visum'),
+        'tanggal'      => date('Y-m-d'),
+    ];
+    $this->load->model('rekamedik');
+    $this->rekamedik->insert($data_medik);
+
+    // $this->session->set_flashdata('pesan', 'Data pasien berhasil disimpan.');
+    redirect('admin/pasien_form');
 
     // redirect('admin/pasien'); // redirect ke halaman daftar pasien, atau lainnya
 }

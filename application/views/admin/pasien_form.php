@@ -36,7 +36,7 @@
   <!--end::Header-->
 
   <!--begin::Form-->
-<form action="<?= base_url('admin/simpan_pasien') ?>" method="post">
+<form action="<?= site_url('admin/simpan_pasien') ?>" method="post">
   <div class="card-body">
 
     <!-- Nama Pasien -->
@@ -47,8 +47,8 @@
 
     <!-- No Kamar -->
     <div class="mb-3">
-      <label for="nomor_kamar" class="form-label">Nomor Kamar</label>
-      <input type="text" class="form-control" name="nomor_kamar" required />
+      <label for="no_room" class="form-label">Nomor Kamar</label>
+      <input type="text" class="form-control" name="no_room" required />
     </div>
 
     <!-- No Telepon -->
@@ -80,8 +80,8 @@
 
     <!-- Tindakan -->
     <div class="mb-3">
-      <label for="tindakan">Tindakan</label>
-      <select name="tindakan" class="form-control" required>
+      <label for="id_tindakan">Tindakan</label>
+      <select name="id_tindakan" class="form-control" required>
           <option value="">-- Pilih Tindakan --</option>
           <?php foreach ($tindakan as $row): ?>
               <option value="<?= $row['id']; ?>"><?= $row['nama']; ?></option>
@@ -91,8 +91,8 @@
 
     <!-- Dokter -->
     <div class="mb-3">
-      <label for="nama" class="form-label">Pilih Dokter</label>
-      <select name="nama" class="form-select" required>
+      <label for="id_dokter" class="form-label">Pilih Dokter</label>
+      <select name="id_dokter" class="form-select" required>
         <option value="">-- Pilih Dokter --</option>
         <?php foreach ($dokter as $d): ?>
           <option value="<?= $d['id']; ?>"><?= $d['nama']; ?></option>
